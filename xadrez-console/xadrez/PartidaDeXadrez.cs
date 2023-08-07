@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 using tabuleiro;
+using xadrez_console.xadrez;
 
 namespace xadrez
 {
@@ -106,7 +107,7 @@ namespace xadrez
 
         public void ValidarPosicaoDeDestino(Posicao origem, Posicao destino)
         {
-            if (!tab.peca(origem).podeMoverPara(destino))
+            if (!tab.peca(origem).MovimentoPossivel(destino))
             {
                 throw new TabuleiroException("Posição de destino inválida!");
             }
@@ -215,10 +216,12 @@ namespace xadrez
                     {
                         if (mat[i, j])
                         {
+                            Posicao origem = x.posicao;
                             Posicao destino = new Posicao(i, j);
 
-                            Peca pecaCapiturada = ExecutaMovimento(x.posicao, destino);
+                            Peca pecaCapiturada = ExecutaMovimento(origem, destino);
                             bool testeXeque = EstaEmXeque(cor);
+                            DesfazMovimento(origem, destino, pecaCapiturada);
 
                             if (!testeXeque)
                             {
@@ -239,19 +242,39 @@ namespace xadrez
 
         private void colocarPecas()
         {
-            ColocarNovaPeca('c', 1, new Torre(tab, Cor.Branca));
-            ColocarNovaPeca('c', 2, new Torre(tab, Cor.Branca));
-            ColocarNovaPeca('d', 2, new Torre(tab, Cor.Branca));
-            ColocarNovaPeca('e', 2, new Torre(tab, Cor.Branca));
-            ColocarNovaPeca('e', 1, new Torre(tab, Cor.Branca));
-            ColocarNovaPeca('d', 1, new Rei(tab, Cor.Branca));
+            ColocarNovaPeca('a', 1, new Torre(tab, Cor.Branca));
+            ColocarNovaPeca('b', 1, new Cavalo(tab, Cor.Branca));
+            ColocarNovaPeca('c', 1, new Bispo(tab, Cor.Branca));
+            ColocarNovaPeca('d', 1, new Dama(tab, Cor.Branca));
+            ColocarNovaPeca('e', 1, new Rei(tab, Cor.Branca));
+            ColocarNovaPeca('f', 1, new Bispo(tab, Cor.Branca));
+            ColocarNovaPeca('g', 1, new Cavalo(tab, Cor.Branca));
+            ColocarNovaPeca('h', 1, new Torre(tab, Cor.Branca));
+            ColocarNovaPeca('a', 2, new Peao(tab, Cor.Branca));
+            ColocarNovaPeca('b', 2, new Peao(tab, Cor.Branca));
+            ColocarNovaPeca('c', 2, new Peao(tab, Cor.Branca));
+            ColocarNovaPeca('d', 2, new Peao(tab, Cor.Branca));
+            ColocarNovaPeca('e', 2, new Peao(tab, Cor.Branca));
+            ColocarNovaPeca('f', 2, new Peao(tab, Cor.Branca));
+            ColocarNovaPeca('g', 2, new Peao(tab, Cor.Branca));
+            ColocarNovaPeca('h', 2, new Peao(tab, Cor.Branca));
 
-            ColocarNovaPeca('c', 7, new Torre(tab, Cor.Preta));
-            ColocarNovaPeca('c', 8, new Torre(tab, Cor.Preta));
-            ColocarNovaPeca('d', 7, new Torre(tab, Cor.Preta));
-            ColocarNovaPeca('e', 7, new Torre(tab, Cor.Preta));
-            ColocarNovaPeca('e', 8, new Torre(tab, Cor.Preta));
-            ColocarNovaPeca('d', 8, new Rei(tab, Cor.Preta));
+            ColocarNovaPeca('a', 8, new Torre(tab, Cor.Preta));
+            ColocarNovaPeca('b', 8, new Cavalo(tab, Cor.Preta));
+            ColocarNovaPeca('c', 8, new Bispo(tab, Cor.Preta));
+            ColocarNovaPeca('d', 8, new Dama(tab, Cor.Preta));
+            ColocarNovaPeca('e', 8, new Rei(tab, Cor.Preta));
+            ColocarNovaPeca('f', 8, new Bispo(tab, Cor.Preta));
+            ColocarNovaPeca('g', 8, new Cavalo(tab, Cor.Preta));
+            ColocarNovaPeca('h', 8, new Torre(tab, Cor.Preta));
+            ColocarNovaPeca('a', 7, new Peao(tab, Cor.Preta));
+            ColocarNovaPeca('b', 7, new Peao(tab, Cor.Preta));
+            ColocarNovaPeca('c', 7, new Peao(tab, Cor.Preta));
+            ColocarNovaPeca('d', 7, new Peao(tab, Cor.Preta));
+            ColocarNovaPeca('e', 7, new Peao(tab, Cor.Preta));
+            ColocarNovaPeca('f', 7, new Peao(tab, Cor.Preta));
+            ColocarNovaPeca('g', 7, new Peao(tab, Cor.Preta));
+            ColocarNovaPeca('h', 7, new Peao(tab, Cor.Preta));
 
             Console.WriteLine();
         }
